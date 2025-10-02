@@ -1,39 +1,47 @@
 import random
 
-def lottoziehung():
-    zahlen = list(range(1, 46))
+# Simulates a lottery draw: draws 6 random numbers from 1 to 45
+def lotto_draw():
+    numbers = list(range(1, 46))
     n = 45
-    gezogene = []
+    drawn_numbers = []
 
     for _ in range(6):
-        zufalls_index = random.randint(0, n - 1)
-        gezogene_zahl = zahlen[zufalls_index]
-        gezogene.append(gezogene_zahl)
+        random_index = random.randint(0, n - 1)
+        drawn_number = numbers[random_index]
+        drawn_numbers.append(drawn_number)
 
-        temp = zahlen[zufalls_index]
-        zahlen[zufalls_index] = zahlen[n - 1]
-        zahlen[n - 1] = temp
+        temp = numbers[random_index]  # temp temporarily stores the number
+        numbers[random_index] = numbers[n - 1]
+        numbers[n - 1] = temp
 
-        n = n - 1
+        n -= 1
 
-    return gezogene
+    return drawn_numbers
 
-def lotto_statistik(ziehungen=1000):
-    statistik = {}
+# Generates statistics of how often each number is drawn over many draws
+def lotto_statistics(draws=1000):
+    stats = {}  # Dictionary
 
-    for zahl in range(1, 46):
-        statistik[zahl] = 0
+    for number in range(1, 46):
+        stats[number] = 0
 
-    for _ in range(ziehungen):
-        zahlen = lottoziehung()
-        for zahl in zahlen:
-            statistik[zahl] += 1
+    for _ in range(draws):
+        drawn_numbers = lotto_draw()
+        for number in drawn_numbers:
+            stats[number] += 1
 
-    return statistik
+    return stats
 
-print("Gezogene Lottozahlen:", lottoziehung())
+def main():
+    # Draw and display one set of lotto numbers
+    print("Drawn Lotto Numbers:", lotto_draw())
 
-stat = lotto_statistik()
-print("Zahl    Anzahl der Ziehungen")
-for zahl in sorted(stat.keys()):
-    print(f"{zahl:2d}      {stat[zahl]}")
+    # Generate and display statistics
+    stats = lotto_statistics()
+    print("\nNumber    Times Drawn")
+    for number in sorted(stats.keys()):
+        print(f"{number:2d}        {stats[number]}")
+
+if __name__ == "__main__":
+    main()
