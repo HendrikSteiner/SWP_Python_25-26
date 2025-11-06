@@ -67,8 +67,18 @@ def has_straight(cards):
 
     return True
 
+def is_royal_flush(cards):
+    if not flush(cards):
+        return False
+    symbs = sorted(symbols(cards))
+    royal = [0, 9, 10, 11, 12]
+    return symbs == royal
+
+
 def combination(cards):
-    if flush(cards) and has_straight(cards):
+    if is_royal_flush(cards):
+        return "Royal Flush"
+    elif flush(cards) and has_straight(cards):
         return "Straight Flush"
     elif has_four_of_a_kind(cards):
         return "Vierling"
