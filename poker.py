@@ -33,11 +33,14 @@ def count_symbols(cards):
 
 def has_pair(cards):
     counts = count_symbols(cards) #counts = {symbol: count}
-    return list(counts.values()).count(2) == 1
+    # Ternärer Operator verwenden
+    return True if list(counts.values()).count(2) == 1 else False
 
 def has_two_pair(cards):
     counts = count_symbols(cards)
-    return list(counts.values()).count(2) == 2
+    # Tuple mit ternärem Operator
+    return (False, True)[list(counts.values()).count(2) == 2]
+
 
 def has_three_of_a_kind(cards):
     counts = count_symbols(cards)
@@ -104,7 +107,7 @@ def simulate_poker(n):
         typ = combination(cards)
         result.append(typ)
 
-    unique = set(result)  # Ein Set mit nur einzigartigen Kombinationen
+    unique = set(result)
 
     print("Pokerstatistik (in Prozent):")
     for combi in unique:
@@ -119,5 +122,7 @@ print("Kartenfarben:", [color_card(card) for card in cards])
 print("Kartensymbole:", [symbol_card(card) for card in cards])
 print("Kombination:", combination(cards))
 
-# Simulation starten
 simulate_poker(100000)
+
+#ternären Operator einbauen
+#tuple oder dict ternären Op verwenden
