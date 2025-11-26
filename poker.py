@@ -6,8 +6,6 @@
 #flush -> set len() --> wenn 1 dann Flush
 #seltensten als erstes, wahrscheinlichsten als letztes
 import random
-from collections import Counter
-
 deck = list(range(52))
 
 def pull_5_cards():
@@ -29,7 +27,8 @@ def symbols(cards):
     return [symbol_card(card) for card in cards]
 
 def count_symbols(cards):
-    return Counter(symbols(cards))
+    syms = symbols(cards)
+    return {s: syms.count(s) for s in syms}
 
 def has_pair(cards):
     counts = count_symbols(cards) #counts = {symbol: count}
