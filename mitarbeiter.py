@@ -15,7 +15,7 @@ class Abteilungsleiter(Mitarbeiter):
     def __init__(self, name, geschlecht, abteilung):
         super().__init__(name, geschlecht, abteilung)
         if abteilung.leiter is not None:
-            raise ValueError("Abteilung hat bereits einen Leiter!")
+            print("Abteilung hat bereits einen Leiter!")
         abteilung.leiter = self
 
 
@@ -34,10 +34,8 @@ class Firma:
         self.name = name
         self.abteilungen = []
 
-
     def abteilung_hinzufuegen(self, abteilung):
         self.abteilungen.append(abteilung)
-
 
     def anzahl_mitarbeiter(self):
         return sum(len(a.mitarbeiter) for a in self.abteilungen)
