@@ -1,0 +1,59 @@
+class Auto:
+    def __init__(self, ps):
+        self.ps = ps
+
+    def __len__(self):
+        return self.ps
+
+    def __add__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps + other.ps
+
+    def __sub__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps - other.ps
+
+    def __mul__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps * other.ps
+
+    def __eq__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps == other.ps
+
+    def __lt__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps < other.ps
+
+    def __gt__(self, other):
+        if not isinstance(other, Auto):
+            return NotImplemented
+        return self.ps > other.ps
+
+
+a1 = Auto(50)
+a2 = Auto(60)
+
+print(len(a1))
+print(a1 + a2)
+print(a2 - a1)
+print(a1 * a2)
+
+print(a1 == a2)
+print(a1 < a2)
+print(a1 > a2)
+
+try:
+    print(a1 + 5)
+except TypeError as e:
+    print("TypeError:", e)
+
+try:
+    print(a1 < "x")
+except TypeError as e:
+    print("TypeError:", e)
