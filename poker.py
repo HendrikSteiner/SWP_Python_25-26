@@ -5,8 +5,22 @@
 #sort()
 #flush -> set len() --> wenn 1 dann Flush
 #seltensten als erstes, wahrscheinlichsten als letztes
+import functools
 import random
+import time
+
 deck = list(range(52))
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper_time(*args, **kwargs):
+        start_time = time.perf_counter()
+        value = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        run_time = end_time - start_time
+        print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        return value
+    return wrapper_time
 
 def pull_5_cards():
     pulled_cards = random.sample(deck, 5)
@@ -31,7 +45,7 @@ def count_symbols(cards):
     return {s: syms.count(s) for s in syms}
 
 def has_pair(cards):
-    counts = count_symbols(cards) #counts = {symbol: count}
+    counts = count_symbols(cards)
     # Ternärer Operator verwenden
     return True if list(counts.values()).count(2) == 1 else False
 
@@ -50,7 +64,7 @@ def has_four_of_a_kind(cards):
     return 4 in counts.values()
 
 def has_full_house(cards):
-    counts = count_symbols(cards) #dict zählt wie oft Zahl vorkommt
+    counts = count_symbols(cards) #dict -> zählt wie oft Zahl vorkommt
     vals = list(counts.values()) #speichert values als list
     return (3 in vals) and (2 in vals)
 
@@ -99,6 +113,7 @@ def combination(cards):
     else:
         return "High Card"
 
+@timer
 def simulate_poker(n):
     result = []
     for _ in range(n):
